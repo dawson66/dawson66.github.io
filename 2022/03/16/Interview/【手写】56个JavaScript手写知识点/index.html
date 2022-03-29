@@ -1,0 +1,648 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>【手写】56个JavaScript知识点 | Dawson</title><meta name="keywords" content="Interview,JavaScript"><meta name="author" content="Dawson"><meta name="copyright" content="Dawson"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. 实现原生ajax封装？Anwser       2. 实现new过程？Anwser       3. 打乱一个数组？Anwser        4. 防抖函数？Anwser         5. 节流函数？Anwser         6. 数组去重？Anwser         7. setTimeout实现setIterval？Anwser         8. setInterval">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【手写】56个JavaScript知识点">
+<meta property="og:url" content="http://example.com/2022/03/16/Interview/%E3%80%90%E6%89%8B%E5%86%99%E3%80%9156%E4%B8%AAJavaScript%E6%89%8B%E5%86%99%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
+<meta property="og:site_name" content="Dawson">
+<meta property="og:description" content="1. 实现原生ajax封装？Anwser       2. 实现new过程？Anwser       3. 打乱一个数组？Anwser        4. 防抖函数？Anwser         5. 节流函数？Anwser         6. 数组去重？Anwser         7. setTimeout实现setIterval？Anwser         8. setInterval">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/cover_JavaScript%E5%9F%BA%E7%A1%80.jpeg">
+<meta property="article:published_time" content="2022-03-16T15:35:32.000Z">
+<meta property="article:modified_time" content="2022-03-22T15:21:43.819Z">
+<meta property="article:author" content="Dawson">
+<meta property="article:tag" content="Interview">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/cover_JavaScript%E5%9F%BA%E7%A1%80.jpeg"><link rel="shortcut icon" href="/img/custom_favicon.png"><link rel="canonical" href="http://example.com/2022/03/16/Interview/%E3%80%90%E6%89%8B%E5%86%99%E3%80%9156%E4%B8%AAJavaScript%E6%89%8B%E5%86%99%E7%9F%A5%E8%AF%86%E7%82%B9/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dawson66/dawson66.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【手写】56个JavaScript知识点',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-22 23:21:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/my_avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Dawson</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">【手写】56个JavaScript知识点</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-16T15:35:32.000Z" title="发表于 2022-03-16 23:35:32">2022-03-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-22T15:21:43.819Z" title="更新于 2022-03-22 23:21:43">2022-03-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Interview/">Interview</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【手写】56个JavaScript知识点"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/03/16/Interview/%E3%80%90%E6%89%8B%E5%86%99%E3%80%9156%E4%B8%AAJavaScript%E6%89%8B%E5%86%99%E7%9F%A5%E8%AF%86%E7%82%B9/#post-comment"><span class="gitalk-comment-count"></span></a></span></div></div></div><article class="post-content" id="article-container"><hr>
+<h6 id="1-实现原生ajax封装？"><a href="#1-实现原生ajax封装？" class="headerlink" title="1. 实现原生ajax封装？"></a>1. 实现原生ajax封装？</h6><details><summary><b>Anwser</b></summary>
+<p>
+</p> 
+</details>
+
+<hr>
+<h6 id="2-实现new过程？"><a href="#2-实现new过程？" class="headerlink" title="2. 实现new过程？"></a>2. 实现new过程？</h6><details><summary><b>Anwser</b></summary>
+<p>
+</p> 
+</details>
+
+<hr>
+<h6 id="3-打乱一个数组？"><a href="#3-打乱一个数组？" class="headerlink" title="3. 打乱一个数组？"></a>3. 打乱一个数组？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+</p> 
+</details>
+
+<hr>
+<h6 id="4-防抖函数？"><a href="#4-防抖函数？" class="headerlink" title="4. 防抖函数？"></a>4. 防抖函数？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="5-节流函数？"><a href="#5-节流函数？" class="headerlink" title="5. 节流函数？"></a>5. 节流函数？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="6-数组去重？"><a href="#6-数组去重？" class="headerlink" title="6. 数组去重？"></a>6. 数组去重？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="7-setTimeout实现setIterval？"><a href="#7-setTimeout实现setIterval？" class="headerlink" title="7. setTimeout实现setIterval？"></a>7. setTimeout实现setIterval？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="8-setInterval实现setTimeout？"><a href="#8-setInterval实现setTimeout？" class="headerlink" title="8. setInterval实现setTimeout？"></a>8. setInterval实现setTimeout？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="9-compose函数？"><a href="#9-compose函数？" class="headerlink" title="9. compose函数？"></a>9. compose函数？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="10-curring函数？"><a href="#10-curring函数？" class="headerlink" title="10. curring函数？"></a>10. curring函数？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="11-LRU算法？"><a href="#11-LRU算法？" class="headerlink" title="11. LRU算法？"></a>11. LRU算法？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="12-发布订阅模式？"><a href="#12-发布订阅模式？" class="headerlink" title="12. 发布订阅模式？"></a>12. 发布订阅模式？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="13-DOM转对象？"><a href="#13-DOM转对象？" class="headerlink" title="13. DOM转对象？"></a>13. DOM转对象？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="14-对象转DOM？"><a href="#14-对象转DOM？" class="headerlink" title="14. 对象转DOM？"></a>14. 对象转DOM？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="15-判断对象环引用？"><a href="#15-判断对象环引用？" class="headerlink" title="15. 判断对象环引用？"></a>15. 判断对象环引用？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="16-计算对象的层数？"><a href="#16-计算对象的层数？" class="headerlink" title="16. 计算对象的层数？"></a>16. 计算对象的层数？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="17-对象扁平化？"><a href="#17-对象扁平化？" class="headerlink" title="17. 对象扁平化？"></a>17. 对象扁平化？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="18-a-1-amp-amp-a-2-amp-a-3-为true-求a？"><a href="#18-a-1-amp-amp-a-2-amp-a-3-为true-求a？" class="headerlink" title="18. (a == 1 &amp;&amp; a == 2 &amp; a == 3)为true  求a？"></a>18. (a == 1 &amp;&amp; a == 2 &amp; a == 3)为true  求a？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="19-Promise并发器？"><a href="#19-Promise并发器？" class="headerlink" title="19. Promise并发器？"></a>19. Promise并发器？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="20-lazyMan函数？"><a href="#20-lazyMan函数？" class="headerlink" title="20. lazyMan函数？"></a>20. lazyMan函数？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="21-add函数"><a href="#21-add函数" class="headerlink" title="21. add函数"></a>21. add函数</h6><p>要求：实现一个add方法，使计算结果能够满足如下预期：</p>
+<ul>
+<li>add(1)(2)(3)() = 6</li>
+<li>add(1,2,3)(4)() = 10</li>
+</ul>
+<details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="22-深拷贝实现？"><a href="#22-深拷贝实现？" class="headerlink" title="22. 深拷贝实现？"></a>22. 深拷贝实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="23-计算localStorage总容量？"><a href="#23-计算localStorage总容量？" class="headerlink" title="23. 计算localStorage总容量？"></a>23. 计算localStorage总容量？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="24-实现async-await？"><a href="#24-实现async-await？" class="headerlink" title="24. 实现async/await？"></a>24. 实现async/await？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="25-手写Promise，解释其原理？"><a href="#25-手写Promise，解释其原理？" class="headerlink" title="25. 手写Promise，解释其原理？"></a>25. 手写Promise，解释其原理？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+</p> 
+</details>
+
+<hr>
+<blockquote>
+<p><strong>数组方法实现</strong></p>
+</blockquote>
+<h6 id="26-forEach实现？"><a href="#26-forEach实现？" class="headerlink" title="26. forEach实现？"></a>26. forEach实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+</p> 
+</details>
+
+<hr>
+<h6 id="27-map实现？"><a href="#27-map实现？" class="headerlink" title="27. map实现？"></a>27. map实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="28-filter实现？"><a href="#28-filter实现？" class="headerlink" title="28. filter实现？"></a>28. filter实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="29-every实现？"><a href="#29-every实现？" class="headerlink" title="29. every实现？"></a>29. every实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="30-some实现？"><a href="#30-some实现？" class="headerlink" title="30. some实现？"></a>30. some实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="31-reduce实现？"><a href="#31-reduce实现？" class="headerlink" title="31. reduce实现？"></a>31. reduce实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="32-findIndex实现？"><a href="#32-findIndex实现？" class="headerlink" title="32. findIndex实现？"></a>32. findIndex实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="33-find实现？"><a href="#33-find实现？" class="headerlink" title="33. find实现？"></a>33. find实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="34-fill实现？"><a href="#34-fill实现？" class="headerlink" title="34. fill实现？"></a>34. fill实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="35-include实现？"><a href="#35-include实现？" class="headerlink" title="35. include实现？"></a>35. include实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="36-join实现？"><a href="#36-join实现？" class="headerlink" title="36. join实现？"></a>36. join实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="37-flat实现？"><a href="#37-flat实现？" class="headerlink" title="37. flat实现？"></a>37. flat实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="38-splice实现？"><a href="#38-splice实现？" class="headerlink" title="38. splice实现？"></a>38. splice实现？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<blockquote>
+<p><strong>对象方法</strong></p>
+</blockquote>
+<h6 id="39-entries？"><a href="#39-entries？" class="headerlink" title="39. entries？"></a>39. entries？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="40-fromEntries？"><a href="#40-fromEntries？" class="headerlink" title="40. fromEntries？"></a>40. fromEntries？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="41-keys？"><a href="#41-keys？" class="headerlink" title="41. keys？"></a>41. keys？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="42-values？"><a href="#42-values？" class="headerlink" title="42. values？"></a>42. values？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="43-instanceOf？"><a href="#43-instanceOf？" class="headerlink" title="43. instanceOf？"></a>43. instanceOf？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="44-is？"><a href="#44-is？" class="headerlink" title="44. is？"></a>44. is？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="45-assign？"><a href="#45-assign？" class="headerlink" title="45. assign？"></a>45. assign？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<blockquote>
+<p><strong>Promise方法</strong></p>
+</blockquote>
+<h6 id="46-all？"><a href="#46-all？" class="headerlink" title="46. all？"></a>46. all？</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+</p> 
+</details>
+
+<hr>
+<h6 id="47-race"><a href="#47-race" class="headerlink" title="47. race"></a>47. race</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="48-allSettled"><a href="#48-allSettled" class="headerlink" title="48. allSettled"></a>48. allSettled</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="49-any"><a href="#49-any" class="headerlink" title="49. any"></a>49. any</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+</p> 
+</details>
+
+<hr>
+<h6 id="50-finally"><a href="#50-finally" class="headerlink" title="50. finally"></a>50. finally</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+</p> 
+</details>
+
+<hr>
+<blockquote>
+<p><strong>函数</strong></p>
+</blockquote>
+<h6 id="51-call"><a href="#51-call" class="headerlink" title="51. call"></a>51. call</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="52-apply"><a href="#52-apply" class="headerlink" title="52. apply"></a>52. apply</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+
+
+<hr>
+<h6 id="53-bind"><a href="#53-bind" class="headerlink" title="53. bind"></a>53. bind</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<blockquote>
+<p><strong>字符串</strong></p>
+</blockquote>
+<h6 id="54-slice"><a href="#54-slice" class="headerlink" title="54. slice"></a>54. slice</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="55-substr"><a href="#55-substr" class="headerlink" title="55. substr"></a>55. substr</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+
+<hr>
+<h6 id="56-substring"><a href="#56-substring" class="headerlink" title="56. substring"></a>56. substring</h6><details><summary><b>Anwser</b></summary>
+<p>
+
+
+</p> 
+</details>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Dawson</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/03/16/Interview/%E3%80%90%E6%89%8B%E5%86%99%E3%80%9156%E4%B8%AAJavaScript%E6%89%8B%E5%86%99%E7%9F%A5%E8%AF%86%E7%82%B9/">http://example.com/2022/03/16/Interview/%E3%80%90%E6%89%8B%E5%86%99%E3%80%9156%E4%B8%AAJavaScript%E6%89%8B%E5%86%99%E7%9F%A5%E8%AF%86%E7%82%B9/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Dawson</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Interview/">Interview</a><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript</a></div><div class="post_share"><div class="social-share" data-image="/images/cover_JavaScript%E5%9F%BA%E7%A1%80.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/03/19/Interview/%E3%80%90Vue2%E3%80%91%E5%BF%85%E5%A4%8750%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/"><img class="prev-cover" src="/2022/03/19/Interview/%E3%80%90Vue2%E3%80%91%E5%BF%85%E5%A4%8750%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【Vue2】必备50个知识点</div></div></a></div><div class="next-post pull-right"><a href="/2022/03/14/Interview/%E3%80%90%E5%9F%BA%E7%A1%80%E3%80%9150%E4%B8%AAJavaScript%E7%9F%A5%E8%AF%86%E7%82%B9/"><img class="next-cover" src="/images/cover_JavaScript%E5%9F%BA%E7%A1%80.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【基础】50个JavaScript知识点</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/03/19/Interview/%E3%80%90Vue2%E3%80%91%E5%BF%85%E5%A4%8750%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/" title="【Vue2】必备50个知识点"><img class="cover" src="/2022/03/19/Interview/%E3%80%90Vue2%E3%80%91%E5%BF%85%E5%A4%8750%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/cover.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-19</div><div class="title">【Vue2】必备50个知识点</div></div></a></div><div><a href="/2022/03/14/Interview/%E3%80%90%E5%9F%BA%E7%A1%80%E3%80%9150%E4%B8%AAJavaScript%E7%9F%A5%E8%AF%86%E7%82%B9/" title="【基础】50个JavaScript知识点"><img class="cover" src="/images/cover_JavaScript%E5%9F%BA%E7%A1%80.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-14</div><div class="title">【基础】50个JavaScript知识点</div></div></a></div><div><a href="/2022/03/14/Interview/%E3%80%90%E8%BF%9B%E9%98%B6%E3%80%9150%E4%B8%AAJavaScript%E7%9F%A5%E8%AF%86%E7%82%B9/" title="【进阶】50个JavaScript知识点"><img class="cover" src="/images/cover_JavaScript%E5%9F%BA%E7%A1%80.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-14</div><div class="title">【进阶】50个JavaScript知识点</div></div></a></div><div><a href="/2021/06/07/Interview/interview_js/" title="【基础】50个JavaScript知识点"><img class="cover" src="/images/cover_JavaScript%E5%9F%BA%E7%A1%80.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-07</div><div class="title">【基础】50个JavaScript知识点</div></div></a></div><div><a href="/2021/06/07/Interview/%E5%85%AB%E8%82%A1%E6%96%87%E4%B9%8B%E7%BD%91%E7%BB%9C/" title="八股文之网络"><img class="cover" src="/2021/06/07/Interview/%E5%85%AB%E8%82%A1%E6%96%87%E4%B9%8B%E7%BD%91%E7%BB%9C/%E5%85%AB%E8%82%A1%E6%96%87%E4%B9%8B%E7%BD%91%E7%BB%9C.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-07</div><div class="title">八股文之网络</div></div></a></div><div><a href="/2022/03/29/Interview/%E8%81%8A%E4%B8%80%E8%81%8A%E5%89%8D%E7%AB%AF%E8%B7%A8%E5%9F%9F/" title="post"><img class="cover" src="/images/cover_JavaScript%E5%9F%BA%E7%A1%80.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-29</div><div class="title">post</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/my_avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Dawson</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/dawson66"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%94%9Fajax%E5%B0%81%E8%A3%85%EF%BC%9F"><span class="toc-text">1. 实现原生ajax封装？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E5%AE%9E%E7%8E%B0new%E8%BF%87%E7%A8%8B%EF%BC%9F"><span class="toc-text">2. 实现new过程？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E6%89%93%E4%B9%B1%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%EF%BC%9F"><span class="toc-text">3. 打乱一个数组？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-%E9%98%B2%E6%8A%96%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-text">4. 防抖函数？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#5-%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-text">5. 节流函数？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#6-%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%EF%BC%9F"><span class="toc-text">6. 数组去重？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#7-setTimeout%E5%AE%9E%E7%8E%B0setIterval%EF%BC%9F"><span class="toc-text">7. setTimeout实现setIterval？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#8-setInterval%E5%AE%9E%E7%8E%B0setTimeout%EF%BC%9F"><span class="toc-text">8. setInterval实现setTimeout？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#9-compose%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-text">9. compose函数？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#10-curring%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-text">10. curring函数？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#11-LRU%E7%AE%97%E6%B3%95%EF%BC%9F"><span class="toc-text">11. LRU算法？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#12-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F%EF%BC%9F"><span class="toc-text">12. 发布订阅模式？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#13-DOM%E8%BD%AC%E5%AF%B9%E8%B1%A1%EF%BC%9F"><span class="toc-text">13. DOM转对象？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#14-%E5%AF%B9%E8%B1%A1%E8%BD%ACDOM%EF%BC%9F"><span class="toc-text">14. 对象转DOM？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#15-%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E7%8E%AF%E5%BC%95%E7%94%A8%EF%BC%9F"><span class="toc-text">15. 判断对象环引用？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#16-%E8%AE%A1%E7%AE%97%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%82%E6%95%B0%EF%BC%9F"><span class="toc-text">16. 计算对象的层数？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#17-%E5%AF%B9%E8%B1%A1%E6%89%81%E5%B9%B3%E5%8C%96%EF%BC%9F"><span class="toc-text">17. 对象扁平化？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#18-a-1-amp-amp-a-2-amp-a-3-%E4%B8%BAtrue-%E6%B1%82a%EF%BC%9F"><span class="toc-text">18. (a &#x3D;&#x3D; 1 &amp;&amp; a &#x3D;&#x3D; 2 &amp; a &#x3D;&#x3D; 3)为true  求a？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#19-Promise%E5%B9%B6%E5%8F%91%E5%99%A8%EF%BC%9F"><span class="toc-text">19. Promise并发器？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#20-lazyMan%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-text">20. lazyMan函数？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#21-add%E5%87%BD%E6%95%B0"><span class="toc-text">21. add函数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#22-%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">22. 深拷贝实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#23-%E8%AE%A1%E7%AE%97localStorage%E6%80%BB%E5%AE%B9%E9%87%8F%EF%BC%9F"><span class="toc-text">23. 计算localStorage总容量？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#24-%E5%AE%9E%E7%8E%B0async-await%EF%BC%9F"><span class="toc-text">24. 实现async&#x2F;await？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#25-%E6%89%8B%E5%86%99Promise%EF%BC%8C%E8%A7%A3%E9%87%8A%E5%85%B6%E5%8E%9F%E7%90%86%EF%BC%9F"><span class="toc-text">25. 手写Promise，解释其原理？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#26-forEach%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">26. forEach实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#27-map%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">27. map实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#28-filter%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">28. filter实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#29-every%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">29. every实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#30-some%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">30. some实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#31-reduce%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">31. reduce实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#32-findIndex%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">32. findIndex实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#33-find%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">33. find实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#34-fill%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">34. fill实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#35-include%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">35. include实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#36-join%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">36. join实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#37-flat%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">37. flat实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#38-splice%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">38. splice实现？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#39-entries%EF%BC%9F"><span class="toc-text">39. entries？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#40-fromEntries%EF%BC%9F"><span class="toc-text">40. fromEntries？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#41-keys%EF%BC%9F"><span class="toc-text">41. keys？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#42-values%EF%BC%9F"><span class="toc-text">42. values？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#43-instanceOf%EF%BC%9F"><span class="toc-text">43. instanceOf？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#44-is%EF%BC%9F"><span class="toc-text">44. is？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#45-assign%EF%BC%9F"><span class="toc-text">45. assign？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#46-all%EF%BC%9F"><span class="toc-text">46. all？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#47-race"><span class="toc-text">47. race</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#48-allSettled"><span class="toc-text">48. allSettled</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#49-any"><span class="toc-text">49. any</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#50-finally"><span class="toc-text">50. finally</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#51-call"><span class="toc-text">51. call</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#52-apply"><span class="toc-text">52. apply</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#53-bind"><span class="toc-text">53. bind</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#54-slice"><span class="toc-text">54. slice</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#55-substr"><span class="toc-text">55. substr</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#56-substring"><span class="toc-text">56. substring</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/29/Interview/%E8%81%8A%E4%B8%80%E8%81%8A%E5%89%8D%E7%AB%AF%E8%B7%A8%E5%9F%9F/" title="post"><img src="/images/cover_JavaScript%E5%9F%BA%E7%A1%80.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="post"/></a><div class="content"><a class="title" href="/2022/03/29/Interview/%E8%81%8A%E4%B8%80%E8%81%8A%E5%89%8D%E7%AB%AF%E8%B7%A8%E5%9F%9F/" title="post">post</a><time datetime="2022-03-29T15:26:03.000Z" title="发表于 2022-03-29 23:26:03">2022-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/19/Interview/%E3%80%90Vue2%E3%80%91%E5%BF%85%E5%A4%8750%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/" title="【Vue2】必备50个知识点"><img src="/2022/03/19/Interview/%E3%80%90Vue2%E3%80%91%E5%BF%85%E5%A4%8750%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Vue2】必备50个知识点"/></a><div class="content"><a class="title" href="/2022/03/19/Interview/%E3%80%90Vue2%E3%80%91%E5%BF%85%E5%A4%8750%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/" title="【Vue2】必备50个知识点">【Vue2】必备50个知识点</a><time datetime="2022-03-19T11:56:12.000Z" title="发表于 2022-03-19 19:56:12">2022-03-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/16/Interview/%E3%80%90%E6%89%8B%E5%86%99%E3%80%9156%E4%B8%AAJavaScript%E6%89%8B%E5%86%99%E7%9F%A5%E8%AF%86%E7%82%B9/" title="【手写】56个JavaScript知识点"><img src="/images/cover_JavaScript%E5%9F%BA%E7%A1%80.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【手写】56个JavaScript知识点"/></a><div class="content"><a class="title" href="/2022/03/16/Interview/%E3%80%90%E6%89%8B%E5%86%99%E3%80%9156%E4%B8%AAJavaScript%E6%89%8B%E5%86%99%E7%9F%A5%E8%AF%86%E7%82%B9/" title="【手写】56个JavaScript知识点">【手写】56个JavaScript知识点</a><time datetime="2022-03-16T15:35:32.000Z" title="发表于 2022-03-16 23:35:32">2022-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/14/Interview/%E3%80%90%E5%9F%BA%E7%A1%80%E3%80%9150%E4%B8%AAJavaScript%E7%9F%A5%E8%AF%86%E7%82%B9/" title="【基础】50个JavaScript知识点"><img src="/images/cover_JavaScript%E5%9F%BA%E7%A1%80.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【基础】50个JavaScript知识点"/></a><div class="content"><a class="title" href="/2022/03/14/Interview/%E3%80%90%E5%9F%BA%E7%A1%80%E3%80%9150%E4%B8%AAJavaScript%E7%9F%A5%E8%AF%86%E7%82%B9/" title="【基础】50个JavaScript知识点">【基础】50个JavaScript知识点</a><time datetime="2022-03-13T16:52:23.000Z" title="发表于 2022-03-14 00:52:23">2022-03-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/14/Interview/%E3%80%90%E8%BF%9B%E9%98%B6%E3%80%9150%E4%B8%AAJavaScript%E7%9F%A5%E8%AF%86%E7%82%B9/" title="【进阶】50个JavaScript知识点"><img src="/images/cover_JavaScript%E5%9F%BA%E7%A1%80.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【进阶】50个JavaScript知识点"/></a><div class="content"><a class="title" href="/2022/03/14/Interview/%E3%80%90%E8%BF%9B%E9%98%B6%E3%80%9150%E4%B8%AAJavaScript%E7%9F%A5%E8%AF%86%E7%82%B9/" title="【进阶】50个JavaScript知识点">【进阶】50个JavaScript知识点</a><time datetime="2022-03-13T16:45:17.000Z" title="发表于 2022-03-14 00:45:17">2022-03-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Dawson</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><p> <a style="margin-inline:5px"target="_blank" href="https://hexo.io/"> <img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为 Hexo" alt="HEXO"> </a> <a style="margin-inline:5px"target="_blank" href="https://butterfly.js.org/"> <img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用 Butterfly" alt="Butterfly"></a> <a style="margin-inline:5px"target="_blank" href="https://www.jsdelivr.com/"> <img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用 Jsdelivr 为静态资源提供CDN加速" alt="Jsdelivr"></a> <a style="margin-inline:5px"target="_blank" href="https://github.com/"> <img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由 GitHub 托管" alt="GitHub"></a> <a style="margin-inline:5px"target="_blank"href="http://creativecommons.org/licenses/by-nc-sa/4.0/"> <img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" alt="img" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"> </a> </p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/gh/dawson66/dawson66.github.io/js/util.js"></script><script src="https://cdn.jsdelivr.net/gh/dawson66/dawson66.github.io/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '9fef6ec0f0dbf53ab784',
+      clientSecret: 'd5190e2503fbeb8ff0b68ad1be7a2656256f5c07',
+      repo: 'comments',
+      owner: 'dawson66',
+      admin: ['dawson66'],
+      id: '3e9ae7177ac1bdcb063b227a3ca34d41',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
